@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Uma linha do tempo pessoal, viva e feita para contar sua história.">
+  <title>Minha Jornada — Linha do Tempo Pessoal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --black: #000;
+      --panel: #090a0b;
+      --panel-raised: #101113;
+      --white: #f5f6f7;
+      --silver: #d5d9de;
+      --muted: #898d92;
+      --dim: #55595f;
+      --hairline: rgba(255,255,255,.12);
+      --glow: rgba(232,239,255,.76);
+      --mono: "DM Mono", ui-monospace, monospace;
+      --display: "Space Grotesk", "Manrope", sans-serif;
+      --body: "Manrope", sans-serif;
+      --header-height: 76px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-height) + 32px); background: var(--black); }
+    body { margin: 0; color: var(--white); background: var(--black); font: 400 15px/1.65 var(--body); overflow-x: hidden; }
+    body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .58; background: radial-gradient(ellipse 680px 460px at 50% 13%, rgba(207,220,245,.075), transparent 72%), radial-gradient(ellipse 570px 550px at 94% 60%, rgba(173,190,217,.035), transparent 72%); }
+    ::selection { color: #000; background: #e7ecf4; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    button { color: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--silver); outline-offset: 4px; }
+    .skip-link { position: fixed; z-index: 100; top: 10px; left: 10px; transform: translateY(-160%); padding: 10px 14px; color: #000; background: #fff; }
+    .skip-link:focus { transform: translateY(0); }
+    .shell { width: min(1120px, calc(100% - 56px)); margin-inline: auto; }
+    .eyebrow, .micro-label { font: 500 10px/1.5 var(--mono); letter-spacing: .17em; text-transform: uppercase; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: #c5c8cd; }
+    .eyebrow::before { content: ""; width: 21px; height: 1px; background: #dce0e7; box-shadow: 0 0 9px #dce0e7; }
+    .muted { color: var(--muted); }
+    .site-header { position: fixed; z-index: 30; inset: 0 0 auto; height: var(--header-height); border-bottom: 1px solid rgba(255,255,255,.085); background: rgba(0,0,0,.73); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+    .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 13px; min-width: 0; }
+    .brand-mark { position: relative; width: 27px; height: 27px; flex: 0 0 auto; border: 1px solid rgba(255,255,255,.7); border-radius: 50%; box-shadow: inset 0 0 11px rgba(255,255,255,.12), 0 0 14px rgba(228,236,255,.12); }
+    .brand-mark::before { content: ""; position: absolute; width: 1px; height: 13px; top: 6px; left: 12px; background: white; box-shadow: 0 0 8px white; transform: rotate(30deg); }
+    .brand-mark::after { content: ""; position: absolute; width: 4px; height: 4px; top: 10px; left: 10px; border-radius: 50%; background: white; box-shadow: 0 0 7px white; }
+    .brand-copy { display: grid; gap: 0; }
+    .brand-name { overflow: hidden; max-width: min(48vw, 300px); font: 600 13px/1.25 var(--display); letter-spacing: .02em; text-overflow: ellipsis; white-space: nowrap; }
+    .brand-tag { color: var(--muted); font: 400 9px/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .header-right { display: flex; align-items: center; gap: 26px; }
+    .header-note { display: flex; align-items: center; gap: 8px; color: #aaaeb5; font: 400 10px var(--mono); letter-spacing: .07em; }
+    .status-dot { width: 5px; height: 5px; border-radius: 50%; background: #e8edf4; box-shadow: 0 0 9px white; }
+    .header-index { color: var(--muted); font: 400 10px var(--mono); }
+    .hero { position: relative; min-height: 720px; min-height: min(860px, max(720px, 100svh)); display: flex; align-items: center; padding: calc(var(--header-height) + 70px) 0 90px; isolation: isolate; }
+    .hero::after { content: ""; position: absolute; z-index: -1; width: min(54vw, 620px); aspect-ratio: 1; top: 46%; left: 63%; transform: translate(-50%,-50%); border-radius: 50%; background: radial-gradient(circle, rgba(223,232,246,.085) 0, rgba(211,223,243,.035) 25%, transparent 69%); filter: blur(13px); pointer-events: none; }
+    .hero-inner { display: grid; grid-template-columns: minmax(0, 1fr) 200px; align-items: end; gap: 38px; }
+    .hero-copy { max-width: 790px; }
+    .hero-kicker { margin: 0 0 30px; }
+    h1, h2, h3, p { margin-top: 0; }
+    .hero h1 { max-width: 810px; margin: 0; font: 500 clamp(54px, 8vw, 108px)/.98 var(--display); letter-spacing: -.075em; text-wrap: balance; text-shadow: 0 0 34px rgba(229,237,252,.14); }
+    .hero h1 .headline-soft { display: block; color: #aeb3bb; font-weight: 400; }
+    .hero-caption { max-width: 560px; margin: 29px 0 0; color: #b9bdc4; font-size: clamp(14px,1.55vw,17px); line-height: 1.8; }
+    .hero-caption strong { color: #fff; font-weight: 600; }
+    .hero-actions { display: flex; align-items: center; gap: 19px; margin-top: 35px; }
+    .button-primary { display: inline-flex; align-items: center; justify-content: center; gap: 14px; min-height: 49px; padding: 0 20px; border: 1px solid rgba(255,255,255,.75); border-radius: 2px; color: #08090a; background: #eceef1; box-shadow: 0 0 24px rgba(225,234,255,.14); font: 600 11px var(--mono); letter-spacing: .025em; transition: color .24s ease, background .24s ease, box-shadow .24s ease, transform .24s ease; }
+    .button-primary:hover { transform: translateY(-2px); color: #fff; background: #17191d; box-shadow: 0 0 26px rgba(224,233,250,.2); }
+    .button-primary .arrow { font-size: 16px; transition: transform .24s ease; }
+    .button-primary:hover .arrow { transform: translateX(3px); }
+    .hero-side { justify-self: end; width: 160px; padding: 0 0 8px 15px; border-left: 1px solid rgba(255,255,255,.2); }
+    .hero-side .side-label { display: block; margin-bottom: 12px; color: var(--muted); font: 400 9px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .hero-side strong { display: block; font: 500 12px/1.55 var(--display); }
+    .hero-side .side-coordinate { display: block; margin-top: 18px; color: var(--dim); font: 400 9px var(--mono); letter-spacing: .05em; }
+    .scroll-cue { position: absolute; left: 50%; bottom: 32px; display: grid; justify-items: center; gap: 8px; transform: translateX(-50%); color: #737880; font: 400 9px var(--mono); letter-spacing: .16em; text-transform: uppercase; }
+    .scroll-cue::after { content: ""; width: 1px; height: 38px; background: linear-gradient(#d7dce4, transparent); animation: cue 2.3s ease-in-out infinite; }
+    @keyframes cue { 0%,100% { opacity: .4; transform: scaleY(.55); transform-origin: top; } 55% { opacity: 1; transform: scaleY(1); transform-origin: top; } }
+    .section { position: relative; padding: 112px 0 132px; scroll-margin-top: calc(var(--header-height) + 24px); }
+    .section + .section { padding-top: 10px; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 66px; }
+    .section-heading h2 { margin: 17px 0 0; font: 500 clamp(31px,4.8vw,56px)/1.04 var(--display); letter-spacing: -.06em; }
+    .section-description { max-width: 300px; margin: 0 0 5px; color: var(--muted); font-size: 12px; line-height: 1.85; }
+    .section-count { display: inline-block; margin-left: 7px; color: var(--muted); font: 400 12px var(--mono); vertical-align: top; }
+    .timeline-wrap { position: relative; }
+    .timeline-list { position: relative; display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+    .timeline-list::before { content: ""; position: absolute; z-index: 0; left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%); background: linear-gradient(180deg, rgba(237,242,250,.04), rgba(231,238,249,.46) 13%, rgba(231,238,249,.2) 84%, rgba(237,242,250,.04)); box-shadow: 0 0 11px rgba(222,232,250,.25); }
+    .timeline-list::after { content: ""; position: absolute; z-index: 0; top: -100px; bottom: -100px; left: 50%; width: 2px; transform: translateX(-50%); opacity: .7; pointer-events: none; background: linear-gradient(180deg, transparent 0%, transparent 40%, rgba(245,248,255,.9) 49%, #fff 50%, rgba(215,228,250,.8) 51%, transparent 60%, transparent 100%); background-size: 100% 240%; animation: rail-shine 8s linear infinite; filter: drop-shadow(0 0 5px rgba(255,255,255,.6)); }
+    @keyframes rail-shine { 0% { background-position: 0 -120%; } 100% { background-position: 0 120%; } }
+    .timeline-list.future-rail::before { background: repeating-linear-gradient(to bottom, rgba(217,226,240,.32) 0 3px, transparent 3px 9px); box-shadow: 0 0 9px rgba(223,231,244,.09); }
+    .timeline-list.future-rail::after { opacity: .25; animation-duration: 12s; }
+    .timeline-item { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0,1fr) 72px minmax(0,1fr); align-items: start; min-height: 182px; }
+    .timeline-item:last-child { min-height: 125px; }
+    .event-card { position: relative; grid-column: 1; grid-row: 1; width: min(100%, 414px); justify-self: end; padding: 25px 28px 26px; border: 1px solid rgba(255,255,255,.12); background: linear-gradient(135deg, rgba(18,19,21,.93), rgba(6,7,8,.84)); text-align: right; transition: border-color .3s ease, background .3s ease, box-shadow .3s ease, transform .3s ease; }
+    .timeline-item:nth-child(even) .event-card { grid-column: 3; justify-self: start; text-align: left; }
+    .event-card:hover { transform: translateY(-4px); border-color: rgba(242,246,255,.52); background: linear-gradient(135deg, rgba(22,24,28,.98), rgba(7,8,10,.95)); box-shadow: 0 0 28px rgba(218,229,249,.11), inset 0 0 24px rgba(255,255,255,.025); }
+    .future-rail .event-card { border-style: dashed; border-color: rgba(255,255,255,.19); background: linear-gradient(135deg, rgba(14,15,17,.7), rgba(4,5,6,.72)); }
+    .timeline-node { grid-column: 2; grid-row: 1; justify-self: center; margin-top: 33px; width: 11px; height: 11px; border: 1px solid #fff; border-radius: 50%; background: #dfe5ed; box-shadow: 0 0 0 5px rgba(244,247,252,.055), 0 0 13px rgba(255,255,255,.77); }
+    .timeline-node::after { content: ""; display: block; width: 3px; height: 3px; margin: 3px; border-radius: 50%; background: white; box-shadow: 0 0 6px white; }
+    .future-rail .timeline-node { border-color: #bbbfc7; background: #858c97; box-shadow: 0 0 0 5px rgba(244,247,252,.025), 0 0 9px rgba(255,255,255,.28); }
+    .event-top { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-bottom: 13px; }
+    .timeline-item:nth-child(even) .event-top { justify-content: space-between; }
+    .event-date { color: #d8dde5; font: 500 10px var(--mono); letter-spacing: .12em; text-transform: uppercase; overflow-wrap: anywhere; }
+    .future-rail .event-date { color: #a3a8b1; }
+    .event-icon { display: inline-grid; width: 25px; height: 25px; place-items: center; color: #e6eaf0; border: 1px solid rgba(255,255,255,.19); border-radius: 50%; font-size: 12px; line-height: 1; filter: drop-shadow(0 0 6px rgba(255,255,255,.27)); }
+    .event-card h3 { margin: 0; color: #f4f5f7; font: 500 clamp(18px,2vw,21px)/1.25 var(--display); letter-spacing: -.035em; overflow-wrap: anywhere; }
+    .event-card p { margin: 11px 0 0; color: #9b9fa5; font-size: 12px; line-height: 1.8; white-space: pre-line; overflow-wrap: anywhere; }
+    .future-rail .event-card p { color: #82878f; }
+    .timeline-item.is-revealed .event-card { animation: rise-in .65s cubic-bezier(.2,.7,.2,1) both; animation-delay: var(--delay, 0ms); }
+    @keyframes rise-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .future-intro { display: flex; align-items: center; gap: 9px; margin: -40px 0 53px; color: #858a92; font: 400 10px var(--mono); letter-spacing: .07em; }
+    .future-intro .future-symbol { color: #c2c8d1; font-size: 15px; }
+    .closing { position: relative; padding: 68px 0 76px; border-top: 1px solid rgba(255,255,255,.13); border-bottom: 1px solid rgba(255,255,255,.1); overflow: hidden; }
+    .closing::before { content: ""; position: absolute; width: 420px; height: 200px; left: 50%; top: -60px; transform: translateX(-50%); background: radial-gradient(ellipse, rgba(231,239,255,.08), transparent 70%); pointer-events: none; }
+    .closing-inner { position: relative; display: flex; align-items: end; justify-content: space-between; gap: 30px; }
+    .closing h2 { max-width: 600px; margin: 16px 0 0; font: 500 clamp(30px,5vw,54px)/1.05 var(--display); letter-spacing: -.06em; }
+    .closing-note { max-width: 260px; margin: 0; color: #9a9fa7; font-size: 12px; line-height: 1.8; }
+    .site-footer { padding: 25px 0 94px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 18px; color: #6b7077; font: 400 9px var(--mono); letter-spacing: .05em; }
+    .footer-credit { color: #a4a8ae; }
+    .editor-trigger { position: fixed; z-index: 50; right: 26px; bottom: 23px; display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 47px; padding: 0 17px; border: 1px solid rgba(255,255,255,.68); border-radius: 2px; color: #fff; background: rgba(8,9,10,.9); box-shadow: 0 0 23px rgba(232,240,255,.13); backdrop-filter: blur(12px); font: 500 10px var(--mono); cursor: pointer; transition: transform .25s ease, background .25s ease, box-shadow .25s ease; }
+    .editor-trigger:hover { transform: translateY(-3px); background: #141619; box-shadow: 0 0 28px rgba(232,240,255,.25); }
+    .editor-trigger .edit-icon { font-size: 15px; }
+    .scrim { position: fixed; z-index: 59; inset: 0; opacity: 0; visibility: hidden; background: rgba(0,0,0,.72); backdrop-filter: blur(3px); transition: opacity .28s ease, visibility .28s ease; }
+    .scrim.open { opacity: 1; visibility: visible; }
+    .editor-panel { position: fixed; z-index: 60; inset: 0 0 0 auto; display: flex; flex-direction: column; width: min(480px, 100%); height: 100dvh; border-left: 1px solid rgba(255,255,255,.16); background: #090a0c; box-shadow: -25px 0 80px rgba(0,0,0,.55), -1px 0 18px rgba(255,255,255,.05); transform: translateX(103%); transition: transform .34s cubic-bezier(.2,.72,.2,1); }
+    .editor-panel.open { transform: translateX(0); }
+    .editor-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 82px; padding: 15px 24px; border-bottom: 1px solid var(--hairline); }
+    .editor-head h2 { margin: 5px 0 0; font: 500 20px var(--display); letter-spacing: -.04em; }
+    .editor-head .eyebrow { color: #8e949c; font-size: 9px; }
+    .editor-close { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid var(--hairline); border-radius: 50%; color: #dfe2e7; background: transparent; font-size: 18px; cursor: pointer; transition: background .2s; }
+    .editor-close:hover { background: #191b1e; }
+    .editor-scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 22px 24px 35px; scrollbar-color: #454950 #0a0b0d; scrollbar-width: thin; }
+    .editor-section + .editor-section { margin-top: 26px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.11); }
+    .editor-section-title { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin: 0 0 15px; color: #e8eaf0; font: 500 13px var(--display); }
+    .editor-section-title small { color: var(--muted); font: 400 9px var(--mono); }
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
+    .field { display: grid; gap: 6px; margin-top: 10px; }
+    .field.full { grid-column: 1/-1; }
+    .field label, .field-label { color: #a6abb3; font: 400 9px var(--mono); letter-spacing: .06em; }
+    .field input, .field textarea, .field select { width: 100%; min-height: 40px; padding: 10px 11px; border: 1px solid rgba(255,255,255,.16); border-radius: 2px; color: #f2f4f7; background: #101114; font: 400 11px var(--body); transition: border-color .2s,box-shadow .2s; }
+    .field input::placeholder, .field textarea::placeholder { color: #666b72; }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: rgba(255,255,255,.62); box-shadow: 0 0 14px rgba(238,244,255,.09); outline: none; }
+    .field textarea { min-height: 74px; resize: vertical; line-height: 1.6; }
+    .inline-hint { margin: 7px 0 0; color: #777c84; font: 400 9px/1.6 var(--mono); }
+    .editor-events { display: grid; gap: 7px; margin: 0; padding: 0; list-style: none; }
+    .editor-event { display: grid; grid-template-columns: 31px minmax(0,1fr) auto; align-items: center; gap: 10px; padding: 9px 10px; border: 1px solid rgba(255,255,255,.1); background: #0d0e10; }
+    .editor-event-icon { display: grid; width: 27px; height: 27px; place-items: center; border: 1px solid rgba(255,255,255,.13); border-radius: 50%; color: #d8dde4; font-size: 12px; }
+    .editor-event-copy { min-width: 0; }
+    .editor-event-copy strong, .editor-event-copy span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .editor-event-copy strong { color: #e4e6ea; font: 500 10px var(--display); }
+    .editor-event-copy span { margin-top: 3px; color: #868b93; font: 400 8px var(--mono); }
+    .editor-event-buttons { display: flex; gap: 5px; }
+    .editor-event-buttons button { display: grid; width: 28px; height: 28px; place-items: center; border: 1px solid rgba(255,255,255,.14); border-radius: 2px; color: #d8dce3; background: transparent; font: 400 11px var(--mono); cursor: pointer; }
+    .editor-event-buttons button:hover { border-color: rgba(255,255,255,.52); background: #1a1c20; }
+    .editor-event-buttons .delete-button:hover { color: #fff; border-color: rgba(236,236,236,.55); }
+    .event-form-actions { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
+    .button-small { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 37px; padding: 0 13px; border: 1px solid rgba(255,255,255,.55); border-radius: 2px; color: #050607; background: #e4e7ec; font: 500 9px var(--mono); cursor: pointer; transition: background .2s,transform .2s; }
+    .button-small:hover { transform: translateY(-1px); background: #fff; }
+    .button-small.secondary { color: #d8dce2; border-color: rgba(255,255,255,.18); background: #111215; }
+    .button-small.secondary:hover { background: #1a1c20; border-color: rgba(255,255,255,.38); }
+    .button-small.danger { color: #bcbfc6; border-color: transparent; background: transparent; }
+    .button-small.danger:hover { color: #fff; background: #1a1c20; }
+    .editor-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 24px; border-top: 1px solid var(--hairline); background: #08090a; }
+    .save-state { display: flex; align-items: center; gap: 7px; color: #9499a1; font: 400 9px var(--mono); }
+    .save-state::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #e6eaf0; box-shadow: 0 0 7px rgba(255,255,255,.7); }
+    .footer-tools { display: flex; gap: 6px; }
+    .toast { position: fixed; z-index: 90; bottom: 83px; left: 50%; max-width: min(420px,calc(100% - 32px)); padding: 11px 16px; transform: translate(-50%,12px); opacity: 0; pointer-events: none; border: 1px solid rgba(255,255,255,.24); color: #f0f2f5; background: rgba(13,14,16,.96); box-shadow: 0 0 24px rgba(235,242,255,.08); font: 400 10px var(--mono); text-align: center; transition: opacity .25s, transform .25s; }
+    .toast.show { transform: translate(-50%,0); opacity: 1; }
+    .empty-state { grid-column: 1/-1; margin: 0 auto 34px; padding: 20px 24px; border: 1px dashed rgba(255,255,255,.22); color: #969ba4; font-size: 12px; text-align: center; }
+    body.editor-open { overflow: hidden; }
+    @media (max-width: 760px) {
+      :root { --header-height: 66px; }
+      .shell { width: min(100% - 40px, 600px); }
+      .header-note { display: none; }
+      .hero { min-height: min(790px,max(680px,100svh)); padding-top: calc(var(--header-height) + 56px); }
+      .hero-inner { grid-template-columns: 1fr; gap: 33px; align-items: start; }
+      .hero h1 { font-size: clamp(55px,12vw,84px); }
+      .hero-side { justify-self: start; width: auto; max-width: 220px; margin-left: 2px; }
+      .hero-side .side-coordinate { margin-top: 9px; }
+      .hero::after { width: 90vw; left: 68%; top: 43%; }
+      .section { padding: 87px 0 96px; }
+      .section + .section { padding-top: 6px; }
+      .section-heading { align-items: start; flex-direction: column; gap: 13px; margin-bottom: 49px; }
+      .section-description { max-width: 420px; }
+      .timeline-list { gap: 0; }
+      .timeline-list::before, .timeline-list::after { left: 17px; }
+      .timeline-item, .timeline-item:last-child { grid-template-columns: 36px minmax(0,1fr); min-height: 0; padding: 0 0 26px; }
+      .event-card, .timeline-item:nth-child(even) .event-card { grid-column: 2; grid-row: 1; justify-self: stretch; width: 100%; padding: 21px 20px 22px; text-align: left; }
+      .timeline-node { grid-column: 1; grid-row: 1; justify-self: start; margin: 31px 0 0 12px; width: 10px; height: 10px; }
+      .event-top, .timeline-item:nth-child(even) .event-top { justify-content: flex-start; }
+      .timeline-item:nth-child(odd) .event-top { justify-content: flex-start; }
+      .future-intro { margin: -27px 0 36px; line-height: 1.6; }
+      .closing { padding: 55px 0; }
+      .closing-inner { align-items: start; flex-direction: column; gap: 20px; }
+      .closing-note { max-width: 430px; }
+      .editor-trigger { right: 15px; bottom: 15px; min-height: 45px; padding-inline: 13px; }
+      .editor-head { padding-inline: 20px; }
+      .editor-scroll { padding-inline: 20px; }
+      .editor-footer { padding-inline: 20px; }
+    }
+    @media (max-width: 430px) {
+      .shell { width: calc(100% - 34px); }
+      .brand-name { max-width: 54vw; font-size: 12px; }
+      .brand-tag { font-size: 8px; }
+      .hero h1 { font-size: clamp(49px,13vw,65px); }
+      .hero-kicker { font-size: 9px; }
+      .hero-actions { flex-wrap: wrap; }
+      .section-heading h2 { font-size: 36px; }
+      .field-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .footer-inner { flex-direction: column; }
+      .editor-event { grid-template-columns: 28px minmax(0,1fr) auto; gap: 7px; padding-inline: 8px; }
+      .editor-event-buttons button { width: 26px; height: 26px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#historia">Pular para a linha do tempo</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="#inicio" aria-label="Voltar ao início">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-copy"><span class="brand-name" id="brandTitle">Jornada da Camila</span><span class="brand-tag" id="brandSubtitle">uma história escrita por você</span></span>
+      </a>
+      <div class="header-right">
+        <span class="header-note"><span class="status-dot" aria-hidden="true"></span> SUA HISTÓRIA, EM MOVIMENTO</span>
+        <span class="header-index">01 — ∞</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="shell hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow hero-kicker">A JORNADA DA CAMILA · EM MOVIMENTO</p>
+          <h1 id="heroTitle"><span id="heroName">Camila</span><span class="headline-soft">em construção.</span></h1>
+          <p class="hero-caption" id="heroStatement">Esta é a história da Camila. <strong>Personalize os momentos que merecem ser lembrados.</strong></p>
+          <div class="hero-actions">
+            <a class="button-primary" href="#historia">VER MINHA HISTÓRIA <span class="arrow" aria-hidden="true">↘</span></a>
+          </div>
+        </div>
+        <aside class="hero-side" aria-label="Nota pessoal">
+          <span class="side-label">Uma vida inteira</span>
+          <strong>muitos capítulos que só você pode contar.</strong>
+          <span class="side-coordinate">[ RASCUNHO QUE BRILHA ]</span>
+        </aside>
+      </div>
+      <a class="scroll-cue" href="#historia" aria-label="Rolar para a linha do tempo">DESÇA A PÁGINA</a>
+    </section>
+
+    <section class="section" id="historia" aria-labelledby="historyTitle">
+      <div class="shell">
+        <div class="section-heading">
+          <div><p class="eyebrow">CAPÍTULOS DA CAMILA</p><h2 id="historyTitle">Minha linha do tempo<span class="section-count" id="pastCount"></span></h2></div>
+          <p class="section-description">Os cartões começam como modelos neutros. Troque datas, títulos e descrições pelas lembranças que são suas.</p>
+        </div>
+        <div class="timeline-wrap"><ol class="timeline-list" id="pastTimeline" aria-label="Linha do tempo pessoal"></ol></div>
+      </div>
+    </section>
+
+    <section class="section" id="futuro" aria-labelledby="futureTitle">
+      <div class="shell">
+        <div class="section-heading">
+          <div><p class="eyebrow">AINDA NÃO ACONTECEU · MAS JÁ COMEÇOU</p><h2 id="futureTitle">O Que Pretendo<br>Conquistar<span class="section-count" id="futureCount"></span></h2></div>
+          <p class="section-description">Seus próximos passos também fazem parte da história. Edite os exemplos e deixe espaço para o que vem pela frente.</p>
+        </div>
+        <p class="future-intro"><span class="future-symbol" aria-hidden="true">✳</span> IDEIAS NO HORIZONTE <span aria-hidden="true">— — —</span></p>
+        <div class="timeline-wrap"><ol class="timeline-list future-rail" id="futureTimeline" aria-label="Conquistas futuras"></ol></div>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closingTitle">
+      <div class="shell closing-inner">
+        <div><p class="eyebrow">O PRÓXIMO CAPÍTULO É SEU</p><h2 id="closingTitle">Ainda há espaço<br>para <span class="muted">surpreender.</span></h2></div>
+        <p class="closing-note">Uma linha do tempo não precisa explicar tudo. Ela só precisa lembrar você do caminho que já abriu — e do que ainda pode vir.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="shell footer-inner"><span>ARQUIVO PESSOAL · <span id="currentYear"></span></span><span class="footer-credit">FEITO DE MEMÓRIA, CORAGEM E PRÓXIMOS PASSOS.</span></div></footer>
+
+  <button class="editor-trigger" id="openEditor" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="editorPanel"><span class="edit-icon" aria-hidden="true">✏️</span> <span>Editar Timeline</span></button>
+  <div class="scrim" id="scrim" aria-hidden="true"></div>
+  <aside class="editor-panel" id="editorPanel" role="dialog" aria-modal="true" aria-labelledby="editorTitle" aria-hidden="true" inert>
+    <div class="editor-head">
+      <div><p class="eyebrow">SEU ESPAÇO DE EDIÇÃO</p><h2 id="editorTitle">A história é sua.</h2></div>
+      <button class="editor-close" id="closeEditor" type="button" aria-label="Fechar editor">×</button>
+    </div>
+    <div class="editor-scroll">
+      <section class="editor-section" aria-labelledby="personalHeading">
+        <h3 class="editor-section-title" id="personalHeading">Personalizar a página <small>01 / VOCÊ</small></h3>
+        <div class="field-grid">
+          <div class="field full"><label for="inputJourney">Título no cabeçalho</label><input id="inputJourney" maxlength="50" placeholder="Jornada da Camila"></div>
+          <div class="field full"><label for="inputSubtitle">Subtítulo inspirador</label><input id="inputSubtitle" maxlength="80" placeholder="uma história escrita por você"></div>
+          <div class="field full"><label for="inputName">Seu nome</label><input id="inputName" maxlength="55" placeholder="Camila"></div>
+          <div class="field full"><label for="inputStatement">Frase de impacto</label><textarea id="inputStatement" maxlength="220" placeholder="Esta é a história da Camila..."></textarea></div>
+        </div>
+        <p class="inline-hint">As mudanças aparecem na página enquanto você digita.</p>
+      </section>
+
+      <section class="editor-section" aria-labelledby="eventsHeading">
+        <h3 class="editor-section-title" id="eventsHeading">Seus momentos <small id="editorEventCount">0 ITENS</small></h3>
+        <ul class="editor-events" id="editorEvents" aria-label="Eventos da timeline"></ul>
+      </section>
+
+      <section class="editor-section" aria-labelledby="formHeading">
+        <h3 class="editor-section-title" id="formHeading">Adicionar um momento <small>02 / MEMÓRIA</small></h3>
+        <form id="eventForm">
+          <input id="editingId" type="hidden" value="">
+          <div class="field-grid">
+            <div class="field"><label for="eventDate">Ano ou data</label><input id="eventDate" name="date" maxlength="32" required placeholder="2024 ou 12 mai 2024"></div>
+            <div class="field"><label for="eventType">Parte da jornada</label><select id="eventType" name="type"><option value="past">Já aconteceu</option><option value="future">Quero conquistar</option></select></div>
+            <div class="field full"><label for="eventTitle">Título do momento</label><input id="eventTitle" name="title" maxlength="90" required placeholder="Um novo começo"></div>
+            <div class="field full"><label for="eventDescription">Descrição</label><textarea id="eventDescription" name="description" maxlength="420" placeholder="O que aconteceu? Por que esse momento importa?"></textarea></div>
+            <div class="field"><label for="eventIcon">Ícone ou emoji (opcional)</label><input id="eventIcon" name="icon" maxlength="8" placeholder="✦"></div>
+          </div>
+          <p class="inline-hint">Dica: escreva o ano no início da data para manter a ordem cronológica. Se fechar o editor, seu rascunho fica aqui até você salvar ou cancelar.</p>
+          <div class="event-form-actions"><button class="button-small" id="saveEvent" type="submit">+ ADICIONAR À HISTÓRIA</button><button class="button-small secondary" id="cancelEdit" type="button" hidden>Cancelar edição</button></div>
+        </form>
+      </section>
+    </div>
+    <div class="editor-footer">
+      <span class="save-state" id="saveState" role="status" aria-live="polite">Salvo neste navegador</span>
+      <div class="footer-tools"><button class="button-small secondary" id="exportData" type="button" title="Baixar uma cópia dos dados">Exportar</button><button class="button-small danger" id="restoreData" type="button" title="Voltar aos modelos neutros da Camila">Restaurar exemplos</button></div>
+    </div>
+  </aside>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      "use strict";
+      const STORAGE_KEY = "minha-jornada-timeline-v2";
+      const LEGACY_STORAGE_KEY = "minha-jornada-timeline-v1";
+      const defaults = {
+        journey: "Jornada da Camila",
+        subtitle: "uma história escrita por você",
+        name: "Camila",
+        statement: "Esta é a história da Camila. Personalize os momentos que merecem ser lembrados.",
+        events: [
+          { id: "p-01", date: "SEU ANO", title: "Um momento importante", description: "Adicione uma lembrança ou acontecimento que marcou a sua história.", icon: "✦", type: "past" },
+          { id: "p-02", date: "ANO / DATA", title: "Uma conquista sua", description: "Conte sobre algo de que você se orgulha. Este modelo pode ser editado ou removido.", icon: "↗", type: "past" },
+          { id: "p-03", date: "ANO / DATA", title: "Uma mudança importante", description: "Registre uma escolha, descoberta ou recomeço que mereça ficar na linha do tempo.", icon: "⌁", type: "past" },
+          { id: "p-04", date: "HOJE", title: "Onde você está agora", description: "Escreva algumas palavras sobre o capítulo atual da sua vida, do seu jeito.", icon: "◉", type: "past" },
+          { id: "f-01", date: "EM BREVE", title: "Um sonho no horizonte", description: "Descreva algo que você gostaria de realizar. Seus planos podem mudar junto com você.", icon: "✧", type: "future" },
+          { id: "f-02", date: "PRÓXIMO CAPÍTULO", title: "Uma experiência nova", description: "Que lugar, projeto ou experiência você quer incluir no seu futuro? Personalize este cartão.", icon: "⌖", type: "future" },
+          { id: "f-03", date: "NO SEU TEMPO", title: "Um objetivo de longo prazo", description: "Guarde aqui uma intenção para o futuro, sem pressa e sem roteiro obrigatório.", icon: "∞", type: "future" }
+        ]
+      };
+      const legacyStatement = "Cada passo deixou uma luz acesa. Esta é a minha história — e ela ainda está acontecendo.";
+      const legacyEvents = [
+        { id: "p-01", date: "2012", title: "O começo de tudo", description: "Um primeiro passo, muitas perguntas e a vontade enorme de descobrir o que existia além do conhecido.", icon: "✦", type: "past" },
+        { id: "p-02", date: "2015", title: "Uma porta se abre", description: "Uma oportunidade inesperada virou ponto de partida. Aprendi que coragem também pode ser simplesmente dizer sim.", icon: "↗", type: "past" },
+        { id: "p-03", date: "2019", title: "Meu próprio caminho", description: "Foi quando percebi que a trajetória não precisava seguir o roteiro de ninguém. Comecei a escolher a minha direção.", icon: "⌁", type: "past" },
+        { id: "p-04", date: "2023", title: "Mais perto de quem quero ser", description: "Projetos ganharam forma, outras prioridades mudaram de lugar e novos motivos apareceram para continuar.", icon: "◉", type: "past" },
+        { id: "f-01", date: "2027", title: "Criar algo que fica", description: "Colocar uma ideia no mundo, seguir construindo com intenção e deixar um pouco de beleza por onde eu passar.", icon: "✧", type: "future" },
+        { id: "f-02", date: "Um dia", title: "Mais mundo, mais histórias", description: "Conhecer lugares que ainda não sei nomear — e voltar com um jeito novo de olhar para as coisas de sempre.", icon: "⌖", type: "future" },
+        { id: "f-03", date: "Sempre", title: "Continuar aprendendo", description: "Não tratar crescimento como destino. Manter espaço para mudar de ideia, recomeçar e me surpreender.", icon: "∞", type: "future" }
+      ];
+      const clone = (value) => JSON.parse(JSON.stringify(value));
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const els = {
+        brandTitle: $("#brandTitle"), brandSubtitle: $("#brandSubtitle"), heroName: $("#heroName"), heroStatement: $("#heroStatement"),
+        pastTimeline: $("#pastTimeline"), futureTimeline: $("#futureTimeline"), pastCount: $("#pastCount"), futureCount: $("#futureCount"),
+        editorPanel: $("#editorPanel"), scrim: $("#scrim"), toast: $("#toast"), saveState: $("#saveState"), editorEvents: $("#editorEvents"),
+        editorEventCount: $("#editorEventCount"), form: $("#eventForm"), editingId: $("#editingId"), date: $("#eventDate"), type: $("#eventType"),
+        title: $("#eventTitle"), description: $("#eventDescription"), icon: $("#eventIcon"), saveEvent: $("#saveEvent"), cancelEdit: $("#cancelEdit")
+      };
+      let state = loadState();
+      let toastTimer;
+      let focusTimer;
+      let previousFocus = null;
+      let revealObserver = null;
+      const backgroundElements = [$(".site-header"), $("main"), $(".site-footer"), $("#openEditor")];
+
+      function validState(value) {
+        return value && typeof value === "object" && typeof value.name === "string" && Array.isArray(value.events)
+          && value.events.every((event) => event && typeof event === "object" && typeof event.id === "string"
+            && typeof event.date === "string" && typeof event.title === "string" && typeof event.description === "string"
+            && (event.type === "past" || event.type === "future"));
+      }
+      function normalizeEventIds(events) {
+        const used = new Set();
+        return events.map((event, index) => {
+          const base = event.id.trim() || `evento-${index + 1}`;
+          let id = base, suffix = 1;
+          while (used.has(id)) id = `${base}-${suffix++}`;
+          used.add(id);
+          return { ...event, id, icon: typeof event.icon === "string" ? event.icon : "" };
+        });
+      }
+      function loadState() {
+        try {
+          const current = localStorage.getItem(STORAGE_KEY);
+          const migrating = !current;
+          const raw = current || localStorage.getItem(LEGACY_STORAGE_KEY);
+          const saved = raw ? JSON.parse(raw) : null;
+          if (!validState(saved)) return clone(defaults);
+          const migrated = { ...clone(defaults), ...saved, events: saved.events.map((event) => ({ icon: "", ...event })) };
+          if (migrating) {
+            if (migrated.name === "Alex Ferreira") migrated.name = defaults.name;
+            if (migrated.journey === "Minha Jornada") migrated.journey = defaults.journey;
+            if (migrated.subtitle === "um arquivo vivo de quem eu sou") migrated.subtitle = defaults.subtitle;
+            if (migrated.statement === legacyStatement) migrated.statement = defaults.statement;
+            migrated.events = migrated.events.map((event) => {
+              const old = legacyEvents.find((sample) => sample.id === event.id);
+              const unchangedSample = old && Object.keys(old).every((key) => (key === "icon" ? event.icon || "" : event[key]) === old[key]);
+              return unchangedSample ? (defaults.events.find((sample) => sample.id === event.id) || event) : event;
+            });
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated)); } catch (error) { console.warn("Não foi possível guardar a migração local.", error); }
+          }
+          migrated.events = normalizeEventIds(migrated.events);
+          return migrated;
+        } catch (error) { console.warn("Não foi possível ler os dados salvos.", error); }
+        return clone(defaults);
+      }
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+          els.saveState.textContent = "Salvo neste navegador";
+        } catch (error) {
+          els.saveState.textContent = "Sem gravação local — exporte uma cópia";
+          showToast("A edição continua aberta, mas o navegador não salvou. Use “Exportar” antes de sair.");
+          console.warn("Falha ao salvar a timeline.", error);
+        }
+      }
+      function dateSortValue(date) {
+        const match = String(date).match(/\d{4}/);
+        return match ? Number(match[0]) : Number.POSITIVE_INFINITY;
+      }
+      function sorted(events) {
+        return events.map((event, index) => ({ event, index }))
+          .sort((a, b) => dateSortValue(a.event.date) - dateSortValue(b.event.date) || a.index - b.index)
+          .map(({ event }) => event);
+      }
+      function makeCard(event, index) {
+        const item = document.createElement("li");
+        item.className = "timeline-item";
+        item.dataset.id = event.id;
+        item.style.setProperty("--delay", `${Math.min(index * 85, 340)}ms`);
+        const marker = document.createElement("span");
+        marker.className = "timeline-node";
+        marker.setAttribute("aria-hidden", "true");
+        const card = document.createElement("article");
+        card.className = "event-card";
+        const top = document.createElement("div");
+        top.className = "event-top";
+        const icon = document.createElement("span");
+        icon.className = "event-icon";
+        icon.setAttribute("aria-hidden", "true");
+        icon.textContent = event.icon || "✦";
+        const time = document.createElement("time");
+        time.className = "event-date";
+        time.textContent = event.date;
+        top.append(time, icon);
+        const title = document.createElement("h3");
+        title.textContent = event.title;
+        const description = document.createElement("p");
+        description.textContent = event.description || "Um momento especial desta jornada.";
+        card.append(top, title, description);
+        item.append(marker, card);
+        return item;
+      }
+      function renderEvents() {
+        const past = sorted(state.events.filter((event) => event.type === "past"));
+        const future = sorted(state.events.filter((event) => event.type === "future"));
+        els.pastTimeline.replaceChildren(...past.map(makeCard));
+        els.futureTimeline.replaceChildren(...future.map(makeCard));
+        els.pastCount.textContent = String(past.length).padStart(2, "0");
+        els.futureCount.textContent = String(future.length).padStart(2, "0");
+        if (!past.length) els.pastTimeline.append(makeEmpty("Sua história está esperando o primeiro marco. Adicione um no editor."));
+        if (!future.length) els.futureTimeline.append(makeEmpty("Ainda não há planos por aqui. O futuro está aberto."));
+        renderManager();
+        observeEvents();
+      }
+      function makeEmpty(text) {
+        const item = document.createElement("li");
+        item.className = "empty-state";
+        item.textContent = text;
+        return item;
+      }
+      function renderManager() {
+        const events = sorted(state.events);
+        els.editorEvents.replaceChildren();
+        els.editorEventCount.textContent = `${String(events.length).padStart(2, "0")} ITENS`;
+        for (const event of events) {
+          const row = document.createElement("li");
+          row.className = "editor-event";
+          row.dataset.id = event.id;
+          const icon = document.createElement("span");
+          icon.className = "editor-event-icon";
+          icon.textContent = event.icon || "✦";
+          icon.setAttribute("aria-hidden", "true");
+          const copy = document.createElement("span");
+          copy.className = "editor-event-copy";
+          const title = document.createElement("strong");
+          title.textContent = event.title || "Sem título";
+          const date = document.createElement("span");
+          date.textContent = `${event.date || "Sem data"} · ${event.type === "future" ? "FUTURO" : "JORNADA"}`;
+          copy.append(title, date);
+          const buttons = document.createElement("span");
+          buttons.className = "editor-event-buttons";
+          const edit = document.createElement("button");
+          edit.type = "button"; edit.dataset.action = "edit"; edit.textContent = "✎";
+          edit.title = "Editar este momento"; edit.setAttribute("aria-label", `Editar: ${event.title}`);
+          const remove = document.createElement("button");
+          remove.type = "button"; remove.dataset.action = "delete"; remove.className = "delete-button"; remove.textContent = "×";
+          remove.title = "Remover este momento"; remove.setAttribute("aria-label", `Remover: ${event.title}`);
+          buttons.append(edit, remove);
+          row.append(icon, copy, buttons);
+          els.editorEvents.append(row);
+        }
+      }
+      function renderPersonal() {
+        els.brandTitle.textContent = state.journey || "Jornada da Camila";
+        els.brandSubtitle.textContent = state.subtitle || "uma história escrita por você";
+        els.heroName.textContent = state.name || "Camila";
+        const statement = state.statement || "Esta é a história da Camila. Personalize os momentos que merecem ser lembrados.";
+        const boldStart = statement.indexOf(". ");
+        els.heroStatement.replaceChildren();
+        if (boldStart > 0 && boldStart < statement.length - 2) {
+          els.heroStatement.append(document.createTextNode(statement.slice(0, boldStart + 1) + " "));
+          const strong = document.createElement("strong");
+          strong.textContent = statement.slice(boldStart + 2);
+          els.heroStatement.append(strong);
+        } else els.heroStatement.textContent = statement;
+        document.title = `${state.journey || "Jornada da Camila"} — Linha do Tempo Pessoal`;
+      }
+      function renderAll() {
+        renderPersonal();
+        renderEvents();
+        $("#currentYear").textContent = new Date().getFullYear();
+      }
+      function observeEvents() {
+        if (revealObserver) revealObserver.disconnect();
+        const items = document.querySelectorAll(".timeline-item");
+        if (!("IntersectionObserver" in window)) { items.forEach((item) => item.classList.add("is-revealed")); return; }
+        revealObserver = new IntersectionObserver((entries, observer) => {
+          for (const entry of entries) if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+            observer.unobserve(entry.target);
+          }
+        }, { threshold: 0.12, rootMargin: "0px 0px -24px 0px" });
+        items.forEach((item) => revealObserver.observe(item));
+      }
+      function showToast(message) {
+        clearTimeout(toastTimer);
+        els.toast.textContent = message;
+        els.toast.classList.add("show");
+        toastTimer = setTimeout(() => els.toast.classList.remove("show"), 2600);
+      }
+      function syncPersonalFields() {
+        state.journey = $("#inputJourney").value.trim() || "Jornada da Camila";
+        state.subtitle = $("#inputSubtitle").value.trim() || "uma história escrita por você";
+        state.name = $("#inputName").value.trim() || "Camila";
+        state.statement = $("#inputStatement").value.trim() || "Esta é a história da Camila. Personalize os momentos que merecem ser lembrados.";
+        renderPersonal();
+        saveState();
+      }
+      function fillPersonalFields() {
+        $("#inputJourney").value = state.journey;
+        $("#inputSubtitle").value = state.subtitle;
+        $("#inputName").value = state.name;
+        $("#inputStatement").value = state.statement;
+      }
+      function openEditor() {
+        previousFocus = document.activeElement;
+        clearTimeout(focusTimer);
+        $("#openEditor").setAttribute("aria-expanded", "true");
+        backgroundElements.forEach((element) => { element.inert = true; });
+        document.body.classList.add("editor-open");
+        els.scrim.classList.add("open");
+        els.scrim.setAttribute("aria-hidden", "false");
+        els.editorPanel.classList.add("open");
+        els.editorPanel.setAttribute("aria-hidden", "false");
+        els.editorPanel.removeAttribute("inert");
+        fillPersonalFields();
+        focusTimer = setTimeout(() => {
+          if (els.editorPanel.classList.contains("open")) $("#closeEditor").focus();
+        }, 80);
+      }
+      function closeEditor() {
+        clearTimeout(focusTimer);
+        document.body.classList.remove("editor-open");
+        els.scrim.classList.remove("open");
+        els.scrim.setAttribute("aria-hidden", "true");
+        els.editorPanel.classList.remove("open");
+        els.editorPanel.setAttribute("aria-hidden", "true");
+        els.editorPanel.setAttribute("inert", "");
+        $("#openEditor").setAttribute("aria-expanded", "false");
+        backgroundElements.forEach((element) => { element.inert = false; });
+        if (previousFocus && typeof previousFocus.focus === "function") previousFocus.focus();
+      }
+      function resetForm() {
+        els.form.reset();
+        els.editingId.value = "";
+        els.saveEvent.textContent = "+ ADICIONAR À HISTÓRIA";
+        els.cancelEdit.hidden = true;
+        $("#formHeading").firstChild.textContent = "Adicionar um momento ";
+      }
+      function editEvent(id) {
+        const event = state.events.find((item) => item.id === id);
+        if (!event) return;
+        if (!els.editorPanel.classList.contains("open")) openEditor();
+        els.editingId.value = event.id;
+        els.date.value = event.date;
+        els.type.value = event.type;
+        els.title.value = event.title;
+        els.description.value = event.description;
+        els.icon.value = event.icon || "";
+        els.saveEvent.textContent = "SALVAR ALTERAÇÕES";
+        els.cancelEdit.hidden = false;
+        $("#formHeading").firstChild.textContent = "Editar momento ";
+        $("#eventDate").scrollIntoView({ behavior: "smooth", block: "center" });
+        clearTimeout(focusTimer);
+        focusTimer = setTimeout(() => {
+          if (els.editorPanel.classList.contains("open")) els.title.focus();
+        }, 350);
+      }
+      function deleteEvent(id) {
+        const event = state.events.find((item) => item.id === id);
+        if (!event) return;
+        if (!window.confirm(`Remover “${event.title}” da sua timeline?`)) return;
+        state.events = state.events.filter((item) => item.id !== id);
+        saveState(); renderEvents(); resetForm();
+        showToast("Momento removido da sua história.");
+      }
+      function handleEventAction(event) {
+        const button = event.target.closest("button[data-action]");
+        const row = event.target.closest("[data-id]");
+        if (!button || !row) return;
+        if (button.dataset.action === "edit") editEvent(row.dataset.id);
+        if (button.dataset.action === "delete") deleteEvent(row.dataset.id);
+      }
+      $("#openEditor").addEventListener("click", openEditor);
+      $("#closeEditor").addEventListener("click", closeEditor);
+      els.scrim.addEventListener("click", closeEditor);
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && els.editorPanel.classList.contains("open")) closeEditor();
+        if (event.key === "Tab" && els.editorPanel.classList.contains("open")) {
+          const focusable = [...els.editorPanel.querySelectorAll('button:not([hidden]),input:not([type="hidden"]):not([disabled]),textarea:not([disabled]),select:not([disabled]),[href]')].filter((element) => element.getClientRects().length > 0);
+          if (!focusable.length) return;
+          const first = focusable[0], last = focusable[focusable.length - 1];
+          if (!els.editorPanel.contains(document.activeElement)) { event.preventDefault(); first.focus(); }
+          else if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+          else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+        }
+      });
+      document.addEventListener("focusin", (event) => {
+        if (els.editorPanel.classList.contains("open") && !els.editorPanel.contains(event.target)) $("#closeEditor").focus();
+      });
+      ["#inputJourney", "#inputSubtitle", "#inputName", "#inputStatement"].forEach((selector) => $(selector).addEventListener("input", syncPersonalFields));
+      els.form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const dateValue = els.date.value.trim();
+        const titleValue = els.title.value.trim();
+        els.date.setCustomValidity(dateValue ? "" : "Informe um ano ou uma data.");
+        els.title.setCustomValidity(titleValue ? "" : "Informe um título para o momento.");
+        if (!els.form.reportValidity()) return;
+        const existingId = els.editingId.value;
+        const data = {
+          id: existingId || `event-${Date.now()}-${Math.random().toString(36).slice(2,7)}`,
+          date: dateValue, title: titleValue, description: els.description.value.trim(),
+          icon: els.icon.value.trim(), type: els.type.value
+        };
+        if (existingId) {
+          state.events = state.events.map((item) => item.id === existingId ? data : item);
+          showToast("As mudanças já fazem parte da sua história.");
+        } else {
+          state.events.push(data);
+          showToast("Novo momento adicionado à timeline.");
+        }
+        saveState(); renderEvents(); resetForm();
+      });
+      els.cancelEdit.addEventListener("click", resetForm);
+      els.editorEvents.addEventListener("click", handleEventAction);
+      $("#exportData").addEventListener("click", () => {
+        const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob); link.download = "minha-jornada-backup.json"; link.click();
+        setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+        showToast("Cópia da timeline baixada.");
+      });
+      $("#restoreData").addEventListener("click", () => {
+        if (!window.confirm("Restaurar os modelos neutros da Camila? Isso substitui os dados salvos neste navegador.")) return;
+        state = clone(defaults); saveState(); fillPersonalFields(); renderAll(); resetForm();
+        showToast("Exemplos originais restaurados.");
+      });
+      renderAll();
+    })();
+  </script>
+</body>
+</html>
